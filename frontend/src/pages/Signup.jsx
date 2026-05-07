@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import "./Signup.css";
 
 function Signup() {
   const [name, setName] = useState("");
@@ -21,39 +22,52 @@ function Signup() {
 
     if (data.message === "Signup successful") {
       alert("Signup successful! Please login.");
-      navigate("/login"); // ✅ redirect to login
+      navigate("/login");
     } else {
       alert(data.message);
     }
   };
 
   return (
-    <div>
-      <h2>Signup</h2>
+    <div className="signup-container">
 
-      <input
-        type="text"
-        placeholder="Name"
-        onChange={(e) => setName(e.target.value)}
-      />
+      <div className="signup-box">
 
-      <input
-        type="text"
-        placeholder="Email"
-        onChange={(e) => setEmail(e.target.value)}
-      />
+        <h1 className="signup-title">SIGNUP</h1>
 
-      <input
-        type="password"
-        placeholder="Password"
-        onChange={(e) => setPassword(e.target.value)}
-      />
+        <input
+          className="signup-input"
+          type="text"
+          placeholder="Name"
+          onChange={(e) => setName(e.target.value)}
+        />
 
-      <button onClick={handleSignup}>Signup</button>
+        <input
+          className="signup-input"
+          type="email"
+          placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
-      <p>
-        Already have an account? <Link to="/login">Login</Link>
-      </p>
+        <input
+          className="signup-input"
+          type="password"
+          placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+
+        <button className="signup-button" onClick={handleSignup}>
+          Signup
+        </button>
+
+        <p className="login-text">
+          Already have an account?{" "}
+          <Link to="/login" className="login-link">
+            Login
+          </Link>
+        </p>
+
+      </div>
     </div>
   );
 }

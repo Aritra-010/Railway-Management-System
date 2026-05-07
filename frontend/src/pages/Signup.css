@@ -12,7 +12,7 @@ body {
 }
 
 /* MAIN CONTAINER */
-.login-container {
+.signup-container {
   width: 100%;
   height: 100vh;
 
@@ -23,8 +23,8 @@ body {
   animation: fadeIn 0.8s ease;
 }
 
-/* LOGIN BOX */
-.login-box {
+/* SIGNUP BOX */
+.signup-box {
   width: 420px;
 
   background: rgba(255, 255, 255, 0.35);
@@ -45,8 +45,8 @@ body {
 }
 
 /* TITLE */
-.login-title {
-  font-size: 52px;
+.signup-title {
+  font-size: 48px;
   font-weight: bold;
 
   color: #0f172a;
@@ -57,12 +57,12 @@ body {
 }
 
 /* INPUTS */
-.login-input {
+.signup-input {
   width: 100%;
 
   padding: 18px 20px;
 
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 
   border: 1px solid #dbeafe;
   border-radius: 14px;
@@ -76,14 +76,14 @@ body {
   transition: all 0.3s ease;
 }
 
-.login-input:focus {
+.signup-input:focus {
   transform: scale(1.02);
 
   box-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
 }
 
 /* BUTTON */
-.login-button {
+.signup-button {
   width: 100%;
 
   padding: 16px;
@@ -105,18 +105,18 @@ body {
   transition: all 0.3s ease;
 }
 
-.login-button:hover {
+.signup-button:hover {
   transform: translateY(-2px);
 
   background: linear-gradient(90deg, #0f172a, #1e293b);
 }
 
-.login-button:active {
+.signup-button:active {
   transform: scale(0.98);
 }
 
-/* SIGNUP TEXT */
-.signup-text {
+/* LOGIN TEXT */
+.login-text {
   margin-top: 32px;
 
   font-size: 17px;
@@ -126,7 +126,7 @@ body {
   text-align: center;
 }
 
-.signup-link {
+.login-link {
   color: #6d28d9;
 
   font-weight: bold;
@@ -134,7 +134,7 @@ body {
   text-decoration: none;
 }
 
-.signup-link:hover {
+.login-link:hover {
   text-decoration: underline;
 }
 

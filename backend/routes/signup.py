@@ -14,6 +14,10 @@ def signup_user(data: SignupRequest):
     conn = get_connection()
     cursor = conn.cursor()
 
+    # check if mail ends with @gmail.com
+    if not data.email.endswith("@gmail.com"):
+        return {"message": "Invalid mail ID"}
+
     # check if email already exists
     cursor.execute("SELECT * FROM users WHERE email = %s", (data.email,))
     existing_user = cursor.fetchone()
