@@ -18,11 +18,6 @@ function Admin() {
           </button>
         </Link>
 
-        <Link to="/admin/connect">
-          <button style={{ margin: "10px", padding: "10px 20px" }}>
-            Connect Train & Station
-          </button>
-        </Link>
       </div>
     </div>
   );

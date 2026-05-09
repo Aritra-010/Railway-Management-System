@@ -5,7 +5,7 @@ from routes.admin import station, train
 from routes.user import train as user_train
 from routes.user import ticket_booking
 from routes.user import my_booking
-from routes.user import TrainStatus
+#from routes.user import TrainStatus
 from routes import signup, login
 from routes.user import search_train
 app = FastAPI()
@@ -30,9 +30,8 @@ app.include_router(train.router, prefix="/admin")
 app.include_router(user_train.router, prefix="/user")
 app.include_router(ticket_booking.router, prefix="/user/ticket-booking")
 app.include_router(my_booking.router, prefix="/user/my-bookings")
-app.include_router(TrainStatus.router, prefix="/user")
 app.include_router(search_train.router, prefix="/user")
 
 @app.get("/")
 def root():
-    return {"message": "Backend running 🚆"}
+    return {"message": "Backend running "}
