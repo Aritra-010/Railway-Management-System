@@ -23,8 +23,8 @@ const Navbar = () => {
     <nav className="navbar">
 
       {/* LEFT LOGO */}
-      <div className="navbar-logo" onClick={() => navigate("/home")}>
-        Railway Management System
+      <div>
+        <h1>Railway Management System</h1> 
       </div>
 
       {/* RIGHT MENU */}
@@ -45,7 +45,7 @@ const Navbar = () => {
           className="navbar-link"
           onClick={() => navigate("/profile")}
         >
-          👤 Profile
+           Profile
         </span>
 
       </div>

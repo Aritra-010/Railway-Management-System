@@ -1,13 +1,21 @@
+import {
+  FaSearchLocation,
+  FaTrain,
+  FaCalendarAlt,
+} from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "./css files/ticket_booking.css";
 
 function TicketBooking() {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
+
   const getToday = () => {
-  const today = new Date();
-  return today.toISOString().split("T")[0]; // YYYY-MM-DD
+    const today = new Date();
+    return today.toISOString().split("T")[0];
   };
+
   const [date, setDate] = useState(getToday());
   const [trains, setTrains] = useState([]);
   const [stations, setStations] = useState([]);
@@ -17,7 +25,7 @@ function TicketBooking() {
 
   const navigate = useNavigate();
 
-  // 🔹 Fetch stations
+  // Fetch Stations
   useEffect(() => {
     fetch("http://127.0.0.1:8000/user/stations")
       .then((res) => res.json())
@@ -25,7 +33,7 @@ function TicketBooking() {
       .catch(() => setStations([]));
   }, []);
 
-  // 🔍 Search trains
+  // Search Trains
   const searchTrains = async () => {
     if (!stations.includes(from) || !stations.includes(to)) {
       alert("Select valid stations");
@@ -34,8 +42,9 @@ function TicketBooking() {
 
     try {
       const res = await fetch(
-        `http://127.0.0.1:8000/user/ticket-booking/search?source=${from}&destination=${to}`
+        `http://127.0.0.1:8000/user/ticket-booking/search?source=${from}&destination=${to}`,
       );
+
       const data = await res.json();
       setTrains(data.trains || []);
     } catch (err) {
@@ -43,157 +52,148 @@ function TicketBooking() {
     }
   };
 
-  // 🚆 Navigate to booking page
+  // Navigate Booking
   const handleBook = (train) => {
     navigate("/booking-details", {
-      state: { train, from, to, date }
+      state: { train, from, to, date },
     });
   };
 
-  // 🔍 Filter helper
+  // Filter Stations
   const filterStations = (value) =>
-    stations.filter((s) =>
-      s.toLowerCase().includes(value.toLowerCase())
-    );
+    stations.filter((s) => s.toLowerCase().includes(value.toLowerCase()));
 
   return (
-    <div style={{ maxWidth: "500px", margin: "40px auto", fontFamily: "Arial" }}>
-
-      <h2 style={{ textAlign: "center" }}>Search Trains</h2>
-
-      {/* FROM + TO SIDE BY SIDE */}
-      <div style={{ display: "flex", gap: "10px", marginBottom: "15px" }}>
-
-        {/* FROM */}
-        <div style={{ flex: 1, position: "relative" }}>
-          <input
-            placeholder="From Station"
-            value={from}
-            onChange={(e) => {
-              setFrom(e.target.value);
-              setShowFrom(true);
-            }}
-            style={{ width: "100%", padding: "8px" }}
-          />
-
-          {showFrom && (
-            <div style={{
-              border: "1px solid #ccc",
-              background: "#fff",
-              position: "absolute",
-              width: "100%",
-              zIndex: 10
-            }}>
-              {filterStations(from).map((s, i) => (
-                <div
-                  key={i}
-                  onClick={() => {
-                    setFrom(s);
-                    setShowFrom(false);
-                  }}
-                  style={{ padding: "8px", cursor: "pointer" }}
-                >
-                  {s}
-                </div>
-              ))}
-            </div>
-          )}
+    <div className="ticket-page">
+      <div className="booking-container">
+        <div className="booking-header">
+          <h1>Search Trains</h1>
+          <p>Book railway tickets quickly and easily</p>
         </div>
 
-        {/* TO */}
-        <div style={{ flex: 1, position: "relative" }}>
-          <input
-            placeholder="To Station"
-            value={to}
-            onChange={(e) => {
-              setTo(e.target.value);
-              setShowTo(true);
-            }}
-            style={{ width: "100%", padding: "8px" }}
-          />
+        {/* FORM */}
+        <div className="search-fields">
+          {/* FROM */}
+          <div className="input-group">
+            <FaSearchLocation className="input-icon" />
 
-          {showTo && (
-            <div style={{
-              border: "1px solid #ccc",
-              background: "#fff",
-              position: "absolute",
-              width: "100%",
-              zIndex: 10
-            }}>
-              {filterStations(to).map((s, i) => (
-                <div
-                  key={i}
-                  onClick={() => {
-                    setTo(s);
-                    setShowTo(false);
-                  }}
-                  style={{ padding: "8px", cursor: "pointer" }}
-                >
-                  {s}
-                </div>
-              ))}
+            <div className="autocomplete-field">
+              <input
+                type="text"
+                placeholder="From station"
+                value={from}
+                onChange={(e) => {
+                  setFrom(e.target.value);
+                  setShowFrom(true);
+                }}
+                className="search-input"
+              />
+
+              {showFrom && from && (
+                <ul className="suggestions-dropdown">
+                  {filterStations(from).map((s, i) => (
+                    <li
+                      key={i}
+                      className="suggestion-item"
+                      onMouseDown={() => {
+                        setFrom(s);
+                        setShowFrom(false);
+                      }}
+                    >
+                      <div className="suggestion-text">
+                        <FaSearchLocation className="suggestion-icon" />
+                        <span>{s}</span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
-          )}
-        </div>
+          </div>
 
-      </div>
+          {/* TO */}
+          <div className="input-group">
+            <FaSearchLocation className="input-icon" />
 
-      {/* DATE */}
-      <input
-        type="date"
-        value={date}
-        onChange={(e) => setDate(e.target.value)}
-        style={{ width: "100%", padding: "8px", marginBottom: "15px" }}
-      />
+            <div className="autocomplete-field">
+              <input
+                type="text"
+                placeholder="To station"
+                value={to}
+                onChange={(e) => {
+                  setTo(e.target.value);
+                  setShowTo(true);
+                }}
+                className="search-input"
+              />
 
-      {/* BUTTON */}
-      <button
-        onClick={searchTrains}
-        style={{
-          width: "100%",
-          padding: "10px",
-          background: "#007bff",
-          color: "#fff",
-          border: "none",
-          cursor: "pointer"
-        }}
-      >
-        Search Trains
-      </button>
+              {showTo && to && (
+                <ul className="suggestions-dropdown">
+                  {filterStations(to).map((s, i) => (
+                    <li
+                      key={i}
+                      className="suggestion-item"
+                      onMouseDown={() => {
+                        setTo(s);
+                        setShowTo(false);
+                      }}
+                    >
+                      <div className="suggestion-text">
+                        <FaSearchLocation className="suggestion-icon" />
+                        <span>{s}</span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
 
-      <hr style={{ margin: "20px 0" }} />
+          {/* DATE */}
+          <div className="input-group">
+            <FaCalendarAlt className="input-icon" />
 
-      {/* TRAIN LIST */}
-      {trains.length === 0 ? (
-        <p style={{ textAlign: "center" }}>No trains found</p>
-      ) : (
-        trains.map((train) => (
-          <div
-            key={train.train_id}
-            style={{
-              border: "1px solid #ccc",
-              padding: "10px",
-              marginBottom: "10px"
-            }}
-          >
-            <h4>{train.train_name}</h4>
-            <p>Train No: {train.train_number}</p>
+            <div className="autocomplete-field">
+              <input
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                className="search-input"
+              />
+            </div>
+          </div>
 
-            <button
-              onClick={() => handleBook(train)}
-              style={{
-                background: "green",
-                color: "white",
-                padding: "5px 10px",
-                border: "none",
-                cursor: "pointer"
-              }}
-            >
-              Book
+          {/* BUTTON */}
+          <div className="button-row">
+            <button className="search-button" onClick={searchTrains}>
+              Search Trains
             </button>
           </div>
-        ))
-      )}
+        </div>
+
+        {/* RESULTS */}
+        <div className="train-results">
+          {trains.length === 0 ? (
+            <div className="no-trains">No trains found</div>
+          ) : (
+            trains.map((train) => (
+              <div className="train-card" key={train.train_id}>
+                <div className="train-info">
+                  <h3>{train.train_name}</h3>
+
+                  <p>
+                    Train Number :<span> {train.train_number}</span>
+                  </p>
+                </div>
+
+                <button className="book-btn" onClick={() => handleBook(train)}>
+                  Book Now
+                </button>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
     </div>
   );
 }
