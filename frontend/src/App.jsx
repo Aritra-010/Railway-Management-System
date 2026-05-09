@@ -29,7 +29,7 @@ function Layout() {
     <>
       {!hideNavbar && <Navbar />}
 
-      <div style={{ marginTop: hideNavbar ? "0px" : "70px" }}>
+      <div>
         <Routes>
           <Route path="/" element={<Navigate to="/login" />} />
 
