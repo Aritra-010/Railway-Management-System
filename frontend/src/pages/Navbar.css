@@ -105,9 +105,105 @@
   }
 }
 
-/* DARK MODE */
+/* LIGHT MODE*/
+
+body {
+  background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+  color: #0f172a;
+
+  transition: background 0.3s ease,
+    color 0.3s ease;
+}
+
+/* DARK MODE*/
 
 body.dark {
-  background-color: #0f172a;
+  background: #0f172a;
   color: white;
+}
+
+/* NAVBAR */
+
+body.dark .navbar {
+  background: rgba(2, 6, 23, 0.96);
+}
+
+/* TEXT */
+
+body.dark h1,
+body.dark h2,
+body.dark h3,
+body.dark h4,
+body.dark h5,
+body.dark h6,
+body.dark p,
+body.dark span,
+body.dark label,
+body.dark div {
+  color: white;
+}
+
+/* CARDS / CONTAINERS */
+
+body.dark .dashboard-card,
+body.dark .search-panel,
+body.dark .booking-container,
+body.dark .train-card,
+body.dark .train-summary-card,
+body.dark .input-card,
+body.dark .passenger-card,
+body.dark .no-trains {
+  background: rgba(30, 41, 59, 0.92);
+
+  color: white;
+
+  border: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+/* INPUTS */
+
+body.dark input,
+body.dark select,
+body.dark textarea {
+  background: #1e293b;
+
+  color: white;
+
+  border: 1px solid #475569;
+}
+
+body.dark input::placeholder {
+  color: #85a9db;
+}
+
+/* SEARCH INPUT GROUPS */
+
+body.dark .input-group {
+  background: #1e293b;
+
+  border-color: #334155;
+}
+
+/* DROPDOWNS */
+
+body.dark .suggestions-dropdown {
+  background: #1e293b;
+
+  border: 1px solid #475569;
+}
+
+body.dark .suggestion-item:hover {
+  background: rgba(59, 130, 246, 0.2);
+}
+body.dark .home-container,
+body.dark .ticket-page,
+body.dark .booking-page,
+body.dark .dashboard-container,
+body.dark .main-container {
+  background: linear-gradient(
+    135deg,
+    #020617,
+    #0f172a,
+    #111827
+  ) !important;
 }

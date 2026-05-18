@@ -18,10 +18,20 @@ def search_trains(
 
     try:
         query = """
-        SELECT id, train_name, train_number
+        SELECT id, train_name, train_number, stations
         FROM trains
-        WHERE LOWER(TRIM(source)) = LOWER(TRIM(%s))
-        AND LOWER(TRIM(destination)) = LOWER(TRIM(%s))
+        WHERE LOWER(TRIM(%s)) = ANY(
+            ARRAY(
+                SELECT LOWER(TRIM(s))
+                FROM unnest(stations) AS s
+            )
+        )
+        AND LOWER(TRIM(%s)) = ANY(
+            ARRAY(
+                SELECT LOWER(TRIM(s))
+                FROM unnest(stations) AS s
+            )
+        )
         """
 
         cursor.execute(query, (source, destination))
@@ -53,7 +63,7 @@ def get_train_details(train_id: int, date: str):
 
     try:
         query = """
-        SELECT train_name, train_number, source, destination
+        SELECT train_name, train_number, stations
         FROM trains
         WHERE id = %s
         """
@@ -68,8 +78,7 @@ def get_train_details(train_id: int, date: str):
             "train_id": train_id,
             "train_name": train[0],
             "train_number": train[1],
-            "source": train[2],
-            "destination": train[3],
+            "stations": train[2],
             "journey_date": date
         }
 
@@ -98,7 +107,7 @@ def confirm_booking(data: BookingRequest):
 
     try:
         cursor.execute("""
-            SELECT train_name, train_number, source, destination
+            SELECT train_name, train_number
             FROM trains
             WHERE id = %s
         """, (data.train_id,))
@@ -134,14 +143,14 @@ def confirm_booking(data: BookingRequest):
                 data.train_id,
                 train[0],
                 train[1],
-                train[2],
-                train[3],
+                data.source,
+                data.destination,
                 data.journey_date,
                 data.phone_number,
                 p.name,
                 p.age,
-                p.gender.upper(),        # ✅ FIX
-                p.coach_type.upper(),    # ✅ FIX
+                p.gender.upper(),       
+                p.coach_type.upper(),    
                 coach,
                 seat_numbers,
                 total_fare,

@@ -79,6 +79,8 @@ function BookingDetails() {
         train_id: train.train_id,
         journey_date: date,
         phone_number: phone,
+        source: from,
+        destination: to,
         passengers: passengers.map((p) => ({
           name: p.name,
           age: parseInt(p.age),

@@ -11,4 +11,6 @@ class BookingRequest(BaseModel):
     train_id: int
     journey_date: str
     phone_number: str
+    source: str
+    destination: str
     passengers: List[Passenger]

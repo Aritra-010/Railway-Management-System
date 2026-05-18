@@ -23,7 +23,7 @@ const Navbar = () => {
     <nav className="navbar">
 
       {/* LEFT LOGO */}
-      <div>
+      <div className="navbar-logo">
         <h1>Railway Management System</h1> 
       </div>
 

@@ -32,8 +32,8 @@ def search_trains(data: TrainSearch):
     query = """
         SELECT train_number, train_name
         FROM trains
-        WHERE source = %s
-        AND destination = %s
+        WHERE %s = ANY(stations)
+        AND %s = ANY(stations)
     """
 
     cursor.execute(
